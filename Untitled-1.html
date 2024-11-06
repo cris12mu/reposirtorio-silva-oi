@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"content-"width-device-width, initial-scale=1.0">
+    <title>Radio web </title>
+</head>
+<H1>Canal ao vivo</H1>
+<h1>Radio web MRA</h1>
+</head>
+
+<body>
+
+    <audio id="audioPlayer" controls></audio>
+
+    <button id="startButton">Start Recording</button>
+
+    <button id="stopButton" disabled>Stop Recording</button>
+
+    <script>
+
+        const audioPlayer = document.getElementById('audioPlayer');
+
+        const startButton = document.getElementById('startButton');
+
+        const stopButton = document.getElementById('stopButton');
+
+
+
+        startButton.addEventListener('click', () => {
+
+            navigator.mediaDevices.getUserMedia({ audio: true })
+
+                .then(stream => {
+
+                    audioPlayer.srcObject = stream;
+
+                    audioPlayer.play();
+
+                    startButton.disabled = true;
+
+                    stopButton.disabled = false;
+
+                })
+
+                .catch(err => console.error('Error accessing microphone:', err));
+
+        });
+
+
+
+        stopButton.addEventListener('click', () => {
+
+            const stream = audioPlayer.srcObject;
+
+            if (stream) {
+
+                stream.getTracks().forEach(track => track.stop());
+
+            }
+
+            startButton.disabled = false;
+
+            stopButton.disabled = true;
+
+        });
+
+    </script>
+
+</body>
+<head>
+
+<Meta>
+ <meta http-equiv="X-UA-compatible"content nome="IE"edge">   
+<meta nome="viewport"content=width=device-width,
+initial-scale="1.0">
+
+</head> 
+
+</body>
+
+</html>
